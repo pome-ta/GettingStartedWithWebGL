@@ -1,7 +1,9 @@
-'use strict'';
+'use strict';
 
-
+console.log('hoge');
 window.addEventListener('load', main);
+
+//main();
 
 function main() {
   const canvas = document.querySelector('#glcanvas');
