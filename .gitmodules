@@ -1,2 +1,4 @@
 [submodule "pysta-wkwebview"]
 [submodule "pythonista-webview"]
+	path = pythonista-webview
+	url = https://pome-ta@github.com/pome-ta/pythonista-webview
