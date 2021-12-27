@@ -55,6 +55,7 @@ function drawScene() {
 function initShaderProgram(gl, vsSource, fsSource) {
   const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
   const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+  
 }
 
 // 指定されたタイプのシェーダーを作成し、ソースをアップロードしてコンパイルします。
