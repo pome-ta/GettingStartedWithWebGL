@@ -7,13 +7,9 @@ window.addEventListener('load', main);
 function main() {
   const canvas = document.querySelector('#glcanvas');
   // Initialize the GL context
-  // GL コンテキストを初期化する
   const gl = canvas.getContext('webgl');
 
-  // If we don't have a GL context, give up now
-  // Only continue if WebGL is available and working
   // WebGL が使用可能で動作している場合にのみ続行します
-
   if (!gl) {
     alert('Unable to initialize WebGL. Your browser or machine may not support it.');
     return;
@@ -36,8 +32,10 @@ function main() {
     }
   `;
 
+  // シェーダープログラムを初期化します。 これは、頂点などのすべての照明が確立される場所です。
   const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
   
+  // シェーダープログラムを使用するために必要なすべての情報を収集します。 シェーダープログラムがaVertexPositionに使用している属性を検索し、均一な場所を検索します。
   const programInfo = {
     program: shaderProgram,
     attribLocations: {
@@ -49,12 +47,18 @@ function main() {
     },
   };
   
+  // ここで、描画するすべてのオブジェクトを作成するルーチンを呼び出します。
   const buffers = initBuffers(gl);
+  
   drawScene(gl, programInfo, buffers);
 }
 
 
-
+//
+// initBuffers
+//
+// 必要なバッファを初期化します。 このデモでは、1つのオブジェクト（単純な2次元の正方形）があります。
+//
 function initBuffers(gl) {
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -66,6 +70,7 @@ function initBuffers(gl) {
     -1.0, -1.0,
   ];
   
+  // 次に、位置のリストをWebGLに渡して、形状を作成します。 これを行うには、JavaScript配列からFloat32Arrayを作成し、それを使用して現在のバッファーを埋めます。
   gl.bufferData(gl.ARRAY_BUFFER,
                 new Float32Array(positions),
                 gl.STATIC_DRAW);
@@ -74,7 +79,6 @@ function initBuffers(gl) {
 
 
 function drawScene(gl, programInfo, buffers) {
-  console.log('up');
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.clearDepth(1.0);
   gl.enable(gl.DEPTH_TEST);
@@ -93,7 +97,10 @@ function drawScene(gl, programInfo, buffers) {
                    aspect,
                    zNear,
                    zFar);
+  
   const modelViewMatrix = mat4.create();
+  
+  // 次に、描画位置を、正方形の描画を開始する場所に少し移動します。
   mat4.translate(modelViewMatrix,
                  modelViewMatrix,
                  [-0.0, 0.0, -6.0]);
@@ -165,6 +172,3 @@ function loadShader(gl, type, source) {
   return shader;
 }
 
-
-
-console.log('out');
