@@ -1,4 +1,5 @@
-'use strict';
+import { mat4 } from './gl-matrix.js';
+
 
 //main();
 window.addEventListener('load', main);
@@ -49,17 +50,7 @@ function main() {
   };
   
   const buffers = initBuffers(gl);
-  
-  
-
-  
-  // Set clear color to black, fully opaque
-  // クリアカラーを黒に設定し、完全に不透明にします
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
-  // Clear the color buffer with specified clear color
-  // 指定されたクリアカラーでカラーバッファをクリアします
-  gl.clear(gl.COLOR_BUFFER_BIT);
-  
+  drawScene(gl, programInfo, buffers);
 }
 
 
@@ -94,6 +85,50 @@ function drawScene(gl, programInfo, buffers) {
   const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
   const zNear = 0.1;
   const zFar = 100.0;
+  const projectionMatrix = mat4.create();
+  // 注：glmatrix.jsには、結果を受け取る宛先として常に最初の引数があります。
+  mat4.perspective(projectionMatrix,
+                   fieldOfView,
+                   aspect,
+                   zNear,
+                   zFar);
+  const modelViewMatrix = mat4.create();
+  mat4.translate(modelViewMatrix,
+                 modelViewMatrix,
+                 [-0.0, 0.0, -6.0]);
+ 
+  // 位置バッファからvertexPosition属性に位置を引き出す方法をWebGLに指示します。
+  {
+    const numComponents = 2;
+    const type = gl.FLOAT;
+    const normalize = false;
+    const stride = 0;
+    const offset = 0;
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
+    gl.vertexAttribPointer(
+        programInfo.attribLocations.vertexPosition,
+        numComponents,
+        type,
+        normalize,
+        stride,
+        offset);
+    gl.enableVertexAttribArray(
+        programInfo.attribLocations.vertexPosition);
+  }
+  gl.useProgram(programInfo.program);
+  gl.uniformMatrix4fv(
+      programInfo.uniformLocations.projectionMatrix,
+      false,
+      projectionMatrix);
+  gl.uniformMatrix4fv(
+      programInfo.uniformLocations.modelViewMatrix,
+      false,
+      modelViewMatrix);
+  {
+    const offset = 0;
+    const vertexCount = 4;
+    gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
+  }
 }
 
 
