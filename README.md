@@ -22,3 +22,18 @@ play.js と、Pythonista3 両方で検証できるように
 ### 完了したら
 
 `main` に戻り`fast-forward` でマージする
+
+
+## PC での実装確認
+
+node でやってんのに、Python のローカルサーバー確認という愚行
+
+
+`public` ディレクトリへ移行
+
+```
+$ python -m http.server 8080
+```
+
+
+[http://localhost:8080/](http://localhost:8080/) のURL をブラウザで開く
