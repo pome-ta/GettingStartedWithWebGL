@@ -74,6 +74,7 @@ function initBuffers(gl) {
 
 
 function drawScene(gl, programInfo, buffers) {
+  console.log('up');
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.clearDepth(1.0);
   gl.enable(gl.DEPTH_TEST);
@@ -165,3 +166,5 @@ function loadShader(gl, type, source) {
 }
 
 
+
+console.log('out');
