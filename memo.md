@@ -2,7 +2,7 @@
 
 ## matrix
 
-[WebGL自分用メモ | Qiita @yosuheeeee](https://qiita.com/yosuheeeee/items/775e3d9fd54246b60913)
+[WebGL自分用メモ - Qiita](https://qiita.com/yosuheeeee/items/775e3d9fd54246b60913)
 
 [toji | gl-matrix](https://github.com/toji/gl-matrix) の[`v2.7.0`](https://github.com/toji/gl-matrix/releases/tag/v2.7.0) を直接突っ込んでる
 
