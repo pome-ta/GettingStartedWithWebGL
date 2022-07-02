@@ -25,4 +25,3 @@ if __name__ == '__main__':
   view.present(style='fullscreen', orientations=['portrait'])
   #view.present(style='panel', orientations=['portrait'])
   view.wv.clear_cache()
-  
